@@ -4,6 +4,7 @@ import java.awt.*;
 
 
 // This ENTIRE class is to be rewritten with proper inheritance
+// Will extend a either JPanel or Canvas in order to fix rendering issues
 
 public class App extends Frame {
     private final EventManager eventManager = new EventManager();
