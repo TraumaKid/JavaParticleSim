@@ -6,7 +6,9 @@ import java.awt.*;
 // This ENTIRE class is to be rewritten with proper inheritance
 // Will extend a either JPanel or Canvas in order to fix rendering issues
 
-public class App extends Frame {
+// OHHHHHHH the window is a frame, but drawing directly to that frame is stupid so you draw onto a canvas that is placed on the frame
+
+public class App extends Canvas {
     private final EventManager eventManager = new EventManager();
 
     // Setup the screen
@@ -44,8 +46,11 @@ public class App extends Frame {
 
         // Setup the application
         App frame = new App();
-        Graphics2D graphics = (Graphics2D) frame.getGraphics();
+        Canvas myCanvas = new Canvas();
+        Graphics2D graphics = (Graphics2D) myCanvas.getGraphics();
         graphics.setBackground(Color.BLACK); // Set the background to black
+
+        add(myCanvas);
 
         // The particles
         Particle[] particles = createParticles(10);
