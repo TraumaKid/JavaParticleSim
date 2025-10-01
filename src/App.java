@@ -23,6 +23,7 @@ public class App extends Frame {
         // The place where all the drawing is happening
         GamePanel game = new GamePanel();
         add(game);
+        game.paint(getGraphics());
     }
 
 
@@ -48,6 +49,13 @@ public class App extends Frame {
 
     //     return arr;
     // }
+
+
+    // Empty override 
+    @Override
+    public void paint(Graphics g) {
+
+    }
 
 
     // Main game loop functions
