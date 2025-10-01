@@ -67,15 +67,30 @@ public class App extends Frame {
 
     public void startGame() {
         // Use a timer
-        // isRunning = true;
-        // while (isRunning) {
-        //     game.updateGame();
-        // }
-
+        isRunning = true;
+        gameThread = new Thread(syncrhronized() -> {
+            while (isRunning) {
+                System.out.println("Help");
+                game.updateGame();
+                try {
+                    gameThread.wait(16);
+                } catch (InterruptedException ex) {
+                    System.err.println("Failed:\n" + ex.getMessage());
+                    System.exit(-1);
+                }
+            }
+        });
+        
+        gameThread.start();
     }
 
     public void endGame() {
         isRunning = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException ex) {
+            System.err.println("Couldn't close thread?");
+        }
 
     }
 
@@ -85,6 +100,7 @@ public class App extends Frame {
         // Setup the application
         App app = new App();
         app.startGame();
+        // app.endGame();
         
     }
 }

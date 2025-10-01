@@ -30,6 +30,7 @@ public class GamePanel extends Canvas {
     // A function to recall the paint function
     public void updateGame() {
         centerParticle.setPosX(centerParticle.getPosX() + 1);
+        System.out.println("X: " + centerParticle.getPosX());
         repaint();
     }
     
