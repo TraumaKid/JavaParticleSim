@@ -9,21 +9,26 @@ import java.awt.*;
 
 public class App extends Frame {
     private final EventManager eventManager = new EventManager();
+    private final GamePanel game = new GamePanel();
     private Thread gameThread;
     private boolean isRunning;
 
     // Setup the screen
     public App() {
-        setVisible(true);
+        // Initialize everything
         setIgnoreRepaint(true);
         setSize(500, 600);
         // setResizable(false);
+
+        // The place where all the drawing is happening. On a canvas which is created and added to the main
+        add(game);
+        setVisible(true);
+
+        // Mangage window events
         addWindowListener(eventManager);
 
-        // The place where all the drawing is happening
-        GamePanel game = new GamePanel();
-        add(game);
-        game.paint(getGraphics());
+
+        // Set screen to visible
     }
 
 
@@ -61,11 +66,16 @@ public class App extends Frame {
     // Main game loop functions
 
     public void startGame() {
-        
+        // Use a timer
+        // isRunning = true;
+        // while (isRunning) {
+        //     game.updateGame();
+        // }
 
     }
 
     public void endGame() {
+        isRunning = false;
 
     }
 
@@ -73,8 +83,8 @@ public class App extends Frame {
     public static void main(String[] args) throws Exception {
 
         // Setup the application
-        App frame = new App();
-        // frame.startGame();
+        App app = new App();
+        app.startGame();
         
     }
 }

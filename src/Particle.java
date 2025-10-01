@@ -42,28 +42,34 @@ public class Particle {
     // Getters
     // Get xy Pos
     public double getPosX() {
-        return pos.x;
+        return this.pos.x;
     }
 
     public double getPosY() {
-        return pos.y;
+        return this.pos.y;
     }
 
     public double getVelX() {
-        return vel.x;
+        return this.vel.x;
     }
 
     public double getVelY() {
-        return vel.y;
+        return this.vel.y;
     }
 
     // Get radius and mass
     public int getRadius() {
-        return radius;
+        return this.radius;
     }
 
     public int getMass() {
-        return mass;
+        return this.mass;
+    }
+
+
+    // Setters
+    public void setPosX(double xPos) {
+        this.pos.x = xPos;
     }
 
 

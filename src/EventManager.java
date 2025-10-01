@@ -4,6 +4,7 @@ import java.awt.event.WindowEvent;
 public class EventManager extends WindowAdapter{
     @Override
     public void windowClosing(WindowEvent e) {
+        System.out.println("Called");
         System.exit(0);
     }
     

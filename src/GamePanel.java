@@ -17,7 +17,7 @@ public class GamePanel extends Canvas {
 
     // Painting function
     @Override
-    public void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
         int x = (int) centerParticle.getPosX();
@@ -29,6 +29,7 @@ public class GamePanel extends Canvas {
 
     // A function to recall the paint function
     public void updateGame() {
+        centerParticle.setPosX(centerParticle.getPosX() + 1);
         repaint();
     }
     
