@@ -1,13 +1,23 @@
 public class Particle {
     private Vec2d pos;
     private Vec2d vel;
-    public int radius;
-    public int mass;
+    private int radius;
+    private int mass;
 
-    public Particle(Vec2d initialPos, Vec2d initialVel, int radiusI) {
-        pos = initialPos;
-        vel = initialVel;
-        radius = radiusI;
+
+    // Constructors
+    public Particle(Vec2d aInitialPos, Vec2d aInitialVel, int aRadius) {
+        pos = aInitialPos;
+        vel = aInitialVel;
+        radius = aRadius;
+        mass = 100;
+    }
+
+    public Particle(Vec2d aInitialPos, Vec2d aInitialVel, int aRadius, int aMass) {
+        pos = aInitialPos;
+        vel = aInitialVel;
+        radius = aRadius;
+        mass = aMass;
     }
 
     // Update the position by adding the velocity and enforcing bounds
@@ -28,7 +38,9 @@ public class Particle {
         }
     }
 
-    // Get xy Pos 
+
+    // Getters
+    // Get xy Pos
     public double getPosX() {
         return pos.x;
     }
@@ -43,6 +55,15 @@ public class Particle {
 
     public double getVelY() {
         return vel.y;
+    }
+
+    // Get radius and mass
+    public int getRadius() {
+        return radius;
+    }
+
+    public int getMass() {
+        return mass;
     }
 
 
