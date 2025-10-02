@@ -31,13 +31,13 @@ public class Vec2d {
     }
 
 
-    // Operations between vectors
+    // Operations between vectors. Will return a new vector? Or can use the functional pardiagm
     public Vec2d add(Vec2d other) {
         Vec2d result = new Vec2d(this.x + other.x, this.y + other.y);
         return result;
     }
 
-    public Vec2d subtract(Vec2d other) {
+    public Vec2d sub(Vec2d other) {
         Vec2d result = new Vec2d(this.x - other.x, this.y - other.y);
         return result;
     }
@@ -47,22 +47,44 @@ public class Vec2d {
         return result;
     }
 
-    public Vec2d divide(Vec2d other) {
+    public Vec2d div(Vec2d other) {
         Vec2d result = new Vec2d(this.x / other.x, this.y / other.y);
         return result;
     }
 
     // Operations between vector and scalar
-    public Vec2d multiply(double value) {
-        Vec2d result = new Vec2d(this.x * value, this.y * value);
+    public Vec2d multiply(double scalar) {
+        Vec2d result = new Vec2d(this.x * scalar, this.y * scalar);
         return result;
     }
 
 
 
+    // Vector operations
+
     // Length of the vector
     public double magnitude() {
         return Math.sqrt(x * x + y * y);
+    }
+
+    // Normalize a vector(set the length to 1)
+    public Vec2d normalize() {
+        double length = this.magnitude();
+        return new Vec2d(this.x / length, this.y / length);
+    }
+
+
+    // Dot product
+    public double dot(Vec2d other) {
+        return this.x * other.x + this.y * other.y;
+    }
+
+    // Find the angle between two vectors
+    public double angleBetween(Vec2d other) {
+        // arccos((v1 . v2) /(|v1| * |v2|)) = Equation being used
+
+        return Math.acos(this.dot(other) / (this.magnitude() * other.magnitude())) ;
+
     }
 
 }

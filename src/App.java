@@ -1,13 +1,9 @@
 import java.awt.*;
-// import java.awt.event.WindowAdapter;
-// import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 
 
-// Canvas is half working. Needs to be into fullscreen to start to work.
-
-
-public class App extends Frame {
+public class App extends Frame implements KeyListener {
     private final EventManager eventManager = new EventManager();
     private final GamePanel game = new GamePanel();
     private Thread gameThread;
@@ -26,54 +22,47 @@ public class App extends Frame {
 
         // Mangage window events
         addWindowListener(eventManager);
-
-
-        // Set screen to visible
+        addKeyListener(this);
     }
 
 
-    /*
-     * To Be Moved
-     * Most likely a seperate file
-     */
-    // // 0 to upperBound(exlcusive)
-    // public static double randRange(int lowerBound, int upperBound) {
-    //     return lowerBound + Math.random() * (upperBound - lowerBound);
-    // }
-
-    // // Initially create the particles
-    // public static Particle[] createParticles(int size) {
-    //     Particle[] arr = new Particle[size];
-
-    //     for (int i = 0; i < size; i++) {
-    //         Vec2d initialPos = new Vec2d(randRange(50, 450), randRange(100, 500));
-    //         Vec2d initialVel = new Vec2d(1, 1);
-    //         int radius = 10;
-    //         arr[i] = new Particle(initialPos, initialVel, radius);
-    //     }
-
-    //     return arr;
-    // }
-
-
-    // Empty override 
+    // Empty override of paint
     @Override
     public void paint(Graphics g) {
 
     }
 
 
+    // Key events
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == 'q') {
+            this.endGame();
+        }
+    }
+
+
+
     // Main game loop functions
 
+    // Hosts the main game loop
     public void startGame() {
         // Use a timer
         isRunning = true;
-        gameThread = new Thread(syncrhronized() -> {
+        gameThread = new Thread(() -> {
             while (isRunning) {
-                System.out.println("Help");
+                // Update the game every frame
                 game.updateGame();
+
+                // Attempt to sleep for 16 ms resulting in roughly 60 fps
                 try {
-                    gameThread.wait(16);
+                    Thread.sleep(16);
                 } catch (InterruptedException ex) {
                     System.err.println("Failed:\n" + ex.getMessage());
                     System.exit(-1);
@@ -84,10 +73,13 @@ public class App extends Frame {
         gameThread.start();
     }
 
+    // End the game by stopping the other thread
     public void endGame() {
         isRunning = false;
         try {
+            // Join the game thread to the main one and then end the process
             gameThread.join();
+            System.exit(0);
         } catch (InterruptedException ex) {
             System.err.println("Couldn't close thread?");
         }
@@ -97,10 +89,9 @@ public class App extends Frame {
 
     public static void main(String[] args) throws Exception {
 
-        // Setup the application
+        // Setup the application and run it
         App app = new App();
         app.startGame();
-        // app.endGame();
         
     }
 }
