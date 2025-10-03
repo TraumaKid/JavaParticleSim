@@ -3,23 +3,21 @@ public class Particle {
     private Vec2d vel;
     private final int radius;
     private final int mass;
-    // private final double GRAVITATIONAL_CONSTANT = 0.000000000066743;
-    private final double GRAVITATIONAL_CONSTANT = 2;
 
 
     // Constructors
-    public Particle(Vec2d _initialPos, Vec2d _initialVel, int _radius) {
-        pos = _initialPos;
-        vel = _initialVel;
-        radius = _radius;
-        mass = 10;
+    public Particle(Vec2d initialPos, Vec2d initialVel, int radius) {
+        this.pos = initialPos;
+        this.vel = initialVel;
+        this.radius = radius;
+        this.mass = 10;
     }
 
-    public Particle(Vec2d _initialPos, Vec2d _initialVel, int _radius, int _mass) {
-        pos = _initialPos;
-        vel = _initialVel;
-        radius = _radius;
-        mass = _mass;
+    public Particle(Vec2d initialPos, Vec2d initialVel, int radius, int mass) {
+        this.pos = initialPos;
+        this.vel = initialVel;
+        this.radius = radius;
+        this.mass = mass;
     }
 
     //
@@ -32,33 +30,14 @@ public class Particle {
     // Update the position by adding the velocity and enforcing bounds. Bounds shouldn't be managed by this class but
     public void update(long deltaTime) {
         Vec2d changeInVel = vel.multiply(deltaTime / 1_000_000D);
-        // System.out.println(changeInVel);
         pos = pos.add(changeInVel);
-        
-        // Bounds
-        // if (pos.x > 510) {
-        //     pos.x = -10;
-        // }
-        // if (pos.y > 610) {
-        //     pos.y = -10;
-        // }
+
     }
 
     // Overload of update to not use deltaTime
     public void update() {
-        // System.out.println(changeInVel);
         pos = pos.add(vel);
-        
-
-        // Bounds
-        // if (pos.x > 510) {
-        //     pos.x = -10;
-        // }
-        // if (pos.y > 610) {
-        //     pos.y = -10;
-        // }
     }
-
 
 
     // Gravity system between two particles
@@ -67,7 +46,7 @@ public class Particle {
 
         Vec2d directionalVec = otherParticle.getPos().sub(this.pos);
         double distance = directionalVec.magnitude();
-        double gravityPull = (GRAVITATIONAL_CONSTANT * otherParticle.getMass() * this.getMass()) / (distance * distance);
+        double gravityPull = (Constants.GRAVITATIONAL_CONSTANT * otherParticle.getMass() * this.getMass()) / (distance * distance);
 
         Vec2d normalizedDirectionalVec = directionalVec.normalize();
 
