@@ -1,25 +1,33 @@
 public class Particle {
     private Vec2d pos;
     private Vec2d vel;
-    private int radius;
+    private final int radius;
     private final int mass;
-    private final double GRAVITATIONAL_CONSTANT = 0.000000000066743;
+    // private final double GRAVITATIONAL_CONSTANT = 0.000000000066743;
+    private final double GRAVITATIONAL_CONSTANT = 2;
 
 
     // Constructors
-    public Particle(Vec2d aInitialPos, Vec2d aInitialVel, int aRadius) {
-        pos = aInitialPos;
-        vel = aInitialVel;
-        radius = aRadius;
-        mass = 100;
+    public Particle(Vec2d _initialPos, Vec2d _initialVel, int _radius) {
+        pos = _initialPos;
+        vel = _initialVel;
+        radius = _radius;
+        mass = 10;
     }
 
-    public Particle(Vec2d aInitialPos, Vec2d aInitialVel, int aRadius, int aMass) {
-        pos = aInitialPos;
-        vel = aInitialVel;
-        radius = aRadius;
-        mass = aMass;
+    public Particle(Vec2d _initialPos, Vec2d _initialVel, int _radius, int _mass) {
+        pos = _initialPos;
+        vel = _initialVel;
+        radius = _radius;
+        mass = _mass;
     }
+
+    //
+    public static double distance(Particle first, Particle second) {
+        Vec2d directionalVec = second.getPos().sub(first.getPos());
+        return directionalVec.magnitude();
+    }
+
 
     // Update the position by adding the velocity and enforcing bounds. Bounds shouldn't be managed by this class but
     public void update(long deltaTime) {
@@ -27,34 +35,45 @@ public class Particle {
         // System.out.println(changeInVel);
         pos = pos.add(changeInVel);
         
-
-        if (pos.x > 510) {
-            pos.x = -10;
-            System.out.println("Ran");
-        }
-        if (pos.y > 610) {
-            pos.y = -10;
-            System.out.println("Run");
-        }
+        // Bounds
+        // if (pos.x > 510) {
+        //     pos.x = -10;
+        // }
+        // if (pos.y > 610) {
+        //     pos.y = -10;
+        // }
     }
+
+    // Overload of update to not use deltaTime
+    public void update() {
+        // System.out.println(changeInVel);
+        pos = pos.add(vel);
+        
+
+        // Bounds
+        // if (pos.x > 510) {
+        //     pos.x = -10;
+        // }
+        // if (pos.y > 610) {
+        //     pos.y = -10;
+        // }
+    }
+
 
 
     // Gravity system between two particles
     public void gravity(Particle otherParticle) {
         // F_g = G*((M1 * M2) / R^2)
 
-        Vec2d directionalVec = this.pos.sub(otherParticle.getPos());
+        Vec2d directionalVec = otherParticle.getPos().sub(this.pos);
         double distance = directionalVec.magnitude();
-        double gravityPull = GRAVITATIONAL_CONSTANT * (otherParticle.getMass() * this.getMass()) / (distance * distance);
+        double gravityPull = (GRAVITATIONAL_CONSTANT * otherParticle.getMass() * this.getMass()) / (distance * distance);
 
         Vec2d normalizedDirectionalVec = directionalVec.normalize();
 
-        // New velocity
+        // New velocity is the initial velocity plus the new vector times a constant to make the number bigger
         this.vel = this.vel.add(normalizedDirectionalVec.multiply(gravityPull));
     }
-
-
-
 
     // Getters
     // Get xy Pos

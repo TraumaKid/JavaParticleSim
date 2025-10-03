@@ -31,7 +31,7 @@ public class Vec2d {
     }
 
 
-    // Operations between vectors. Will return a new vector? Or can use the functional pardiagm
+    // Operations between vectors. Will return a new vector? Or can use the functional paradigm
     public Vec2d add(Vec2d other) {
         Vec2d result = new Vec2d(this.x + other.x, this.y + other.y);
         return result;

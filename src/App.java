@@ -11,16 +11,20 @@ public class App extends Frame implements KeyListener {
 
     // Setup the screen
     public App() {
+        // Set the title
+        setTitle("Particle Simulator");
+
         // Initialize everything
         setIgnoreRepaint(true);
-        setSize(500, 600);
-        // setResizable(false);
+        setSize(Constants.WIDTH, Constants.HEIGHT);
+        System.err.println(getSize());
+        setResizable(false);
 
         // The place where all the drawing is happening. On a canvas which is created and added to the main
         add(game);
         setVisible(true);
 
-        // Mangage window events
+        // Manage window events
         addWindowListener(eventManager);
         addKeyListener(this);
     }
@@ -62,7 +66,7 @@ public class App extends Frame implements KeyListener {
 
                 // Attempt to sleep for 16 ms resulting in roughly 60 fps
                 try {
-                    Thread.sleep(16);
+                    Thread.sleep(24);
                 } catch (InterruptedException ex) {
                     System.err.println("Failed:\n" + ex.getMessage());
                     System.exit(-1);
