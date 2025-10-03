@@ -17,7 +17,6 @@ public class App extends Frame implements KeyListener {
         // Initialize everything
         setIgnoreRepaint(true);
         setSize(Constants.WIDTH, Constants.HEIGHT);
-        System.err.println(getSize());
         setResizable(false);
 
         // The place where all the drawing is happening. On a canvas which is created and added to the main
